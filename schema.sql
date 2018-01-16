@@ -135,7 +135,7 @@ CREATE DATABASE IF NOT EXISTS r1;
  */
 CREATE TABLE IF NOT EXISTS r1.ontime AS default.ontime_schema
 ENGINE = ReplicatedMergeTree(
-    '/clickhouse/clusters/ontime_cluster/tables/{r0shard}/ontime',
+    '/clickhouse/clusters/ontime_cluster/tables/{r1shard}/ontime',
     '{r1replica}',
     FlightDate,
     (Year, FlightDate),
@@ -144,8 +144,9 @@ ENGINE = ReplicatedMergeTree(
 
 CREATE TABLE IF NOT EXISTS default.ontime AS default.ontime_schema
 ENGINE = Distributed(
-    'ontime_cluster', 
+    ontime_cluster,
     '',
-    ontime
+    ontime,
+    rand()
 );
 
