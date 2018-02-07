@@ -52,25 +52,25 @@ services:
       - 48123:8123
       - 9004:9004
 
-  # ch-server-5:
-  #   image: yandex/clickhouse-server
-  #   volumes:
-  #     - ./configs/config.xml:/etc/clickhouse-server/config.xml
-  #     - ./configs/macros5.xml:/etc/clickhouse-server/conf.d/macros.xml
-  #     - ./configs/port5.xml:/etc/clickhouse-server/conf.d/port.xml
-  #     - ./configs/clickhouse_remote_servers.xml:/etc/clickhouse-server/conf.d/clickhouse_remote_servers.xml
-  #     - ./configs/zookeeper-servers.xml:/etc/clickhouse-server/conf.d/zookeeper-servers.xml
-  #     - ./data/5:/var/lib/clickhouse
+  ch-server-5:
+    image: yandex/clickhouse-server
+    volumes:
+      - ./configs/config.xml:/etc/clickhouse-server/config.xml
+      - ./configs/macros5.xml:/etc/clickhouse-server/conf.d/macros.xml
+      - ./configs/port5.xml:/etc/clickhouse-server/conf.d/port.xml
+      - ./configs/clickhouse_remote_servers.xml:/etc/clickhouse-server/conf.d/clickhouse_remote_servers.xml
+      - ./configs/zookeeper-servers.xml:/etc/clickhouse-server/conf.d/zookeeper-servers.xml
+      - ./data/5:/var/lib/clickhouse
 
-  # ch-server-6:
-  #   image: yandex/clickhouse-server
-  #   volumes:
-  #     - ./configs/config.xml:/etc/clickhouse-server/config.xml
-  #     - ./configs/macros6.xml:/etc/clickhouse-server/conf.d/macros.xml
-  #     - ./configs/port6.xml:/etc/clickhouse-server/conf.d/port.xml
-  #     - ./configs/clickhouse_remote_servers.xml:/etc/clickhouse-server/conf.d/clickhouse_remote_servers.xml
-  #     - ./configs/zookeeper-servers.xml:/etc/clickhouse-server/conf.d/zookeeper-servers.xml
-  #     - ./data/6:/var/lib/clickhouse
+  ch-server-6:
+    image: yandex/clickhouse-server
+    volumes:
+      - ./configs/config.xml:/etc/clickhouse-server/config.xml
+      - ./configs/macros6.xml:/etc/clickhouse-server/conf.d/macros.xml
+      - ./configs/port6.xml:/etc/clickhouse-server/conf.d/port.xml
+      - ./configs/clickhouse_remote_servers.xml:/etc/clickhouse-server/conf.d/clickhouse_remote_servers.xml
+      - ./configs/zookeeper-servers.xml:/etc/clickhouse-server/conf.d/zookeeper-servers.xml
+      - ./data/6:/var/lib/clickhouse
 
   ch-client:
     image: yandex/clickhouse-client
@@ -79,9 +79,40 @@ services:
     command:
       - infinity
 
-  zookeeper:
+  zoo1:
     image: zookeeper
+    volumes:
+      - ./data/zoo1:/data
     ports:
       - 2181:2181
-    
+      - 38881:3888
+      - 28881:2888
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zoo1:28881:38881 server.2=zoo2:28882:38882 server.3=zoo3:28883:38883
+
+  zoo2:
+    image: zookeeper
+    volumes:
+      - ./data/zoo2:/data
+    ports:
+      - 2182:2181
+      - 38882:3888
+      - 28882:2888
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo1:28881:38881 server.2=zoo2:28882:38882 server.3=zoo3:28883:38883
+
+  zoo3:
+    image: zookeeper
+    volumes:
+      - ./data/zoo3:/data
+    ports:
+      - 2183:2181
+      - 38883:3888
+      - 28883:2888
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo1:28881:38881 server.2=zoo2:28882:38882 server.3=zoo3:28883:38883
+
 

@@ -2,16 +2,16 @@
 <yandex>
     <zookeeper>
         <node index="1">
-            <host>zookeeper</host>
+            <host>zoo1</host>
             <port>2181</port>
         </node>
-        <!-- <node index="2">
-            <host>172.31.11.121</host>
-            <port>2181</port>
+        <node index="2">
+            <host>zoo2</host>
+            <port>2182</port>
         </node>
         <node index="3">
-            <host>172.31.35.68</host>
-            <port>2181</port>
-        </node> -->
+            <host>zoo3</host>
+            <port>2183</port>
+        </node>
     </zookeeper>
 </yandex>
