@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS default.ontime_schema -- ON CLUSTER 'ontime_cluster'
+CREATE TABLE IF NOT EXISTS default.ontime_schema ON CLUSTER 'asg-cluster'
 (
     Year UInt16,
     Quarter UInt8,
@@ -114,38 +114,21 @@ ENGINE = MergeTree(
     FlightDate, (Year, FlightDate), 8192
 );
 
-CREATE DATABASE IF NOT EXISTS r0;
+CREATE DATABASE IF NOT EXISTS db ON CLUSTER 'asg-cluster';
 
-/* Replicates from whomever else has the {shard} znode registered 
- * This replica is {replica}
- */
-CREATE TABLE IF NOT EXISTS r0.ontime AS default.ontime_schema
+CREATE TABLE IF NOT EXISTS db.ontime ON CLUSTER 'asg-cluster' AS default.ontime_schema
 ENGINE = ReplicatedMergeTree(
-    '/clickhouse/clusters/ontime_cluster/tables/{r0shard}/ontime',
-    '{r0replica}',
+    '/clickhouse/clusters/asg_cluster/tables/{shard}/ontime',
+    '{replica}',
     FlightDate,
     (Year, FlightDate),
     8192
 );
 
-CREATE DATABASE IF NOT EXISTS r1;
-
-/* Replicates from whomever else has the {shard} znode registered 
- * This replica is {replica}
- */
-CREATE TABLE IF NOT EXISTS r1.ontime AS default.ontime_schema
-ENGINE = ReplicatedMergeTree(
-    '/clickhouse/clusters/ontime_cluster/tables/{r1shard}/ontime',
-    '{r1replica}',
-    FlightDate,
-    (Year, FlightDate),
-    8192
-);
-
-CREATE TABLE IF NOT EXISTS default.ontime AS default.ontime_schema
+CREATE TABLE IF NOT EXISTS db.ontime_full ON CLUSTER 'asg-cluster' AS default.ontime_schema
 ENGINE = Distributed(
-    ontime_cluster,
-    '',
+    asg_cluster,
+    'db',
     ontime,
     rand()
 );

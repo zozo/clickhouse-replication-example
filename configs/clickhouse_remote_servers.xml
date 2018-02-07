@@ -12,10 +12,10 @@
                     <host>ch-server-3</host>
                     <port>9003</port>
                 </replica>
-                <!-- <replica>
+                <replica>
                     <host>ch-server-5</host>
                     <port>9005</port>
-                </replica> -->
+                </replica>
             </shard>
             <shard>
                 <internal_replication>true</internal_replication>
@@ -27,10 +27,10 @@
                     <host>ch-server-4</host>
                     <port>9004</port>
                 </replica>
-                <!-- <replica>
+                <replica>
                     <host>ch-server-6</host>
                     <port>9006</port>
-                </replica> -->
+                </replica>
             </shard>
         </asg-cluster>
     </remote_servers>
