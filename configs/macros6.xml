@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<yandex>
+    <macros>
+        <shard>shard2</shard>
+        <replica>ch-server-6</replica>
+    </macros>
+</yandex>

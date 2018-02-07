@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS default.ontime_schema
+CREATE TABLE IF NOT EXISTS default.ontime_schema -- ON CLUSTER 'ontime_cluster'
 (
     Year UInt16,
     Quarter UInt8,
