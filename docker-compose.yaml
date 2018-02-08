@@ -83,6 +83,7 @@ services:
     image: zookeeper
     volumes:
       - ./data/zoo1:/data
+    network_mode: "host"
     ports:
       - 2181:2181
       - 38881:3888
@@ -95,6 +96,7 @@ services:
     image: zookeeper
     volumes:
       - ./data/zoo2:/data
+    network_mode: "host"
     ports:
       - 2182:2181
       - 38882:3888
@@ -107,6 +109,7 @@ services:
     image: zookeeper
     volumes:
       - ./data/zoo3:/data
+    network_mode: "host"
     ports:
       - 2183:2181
       - 38883:3888
