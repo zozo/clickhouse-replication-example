@@ -19,3 +19,18 @@ cat examples/On_Time_On_Time_Performance_2017_1.csv | sed 's/\.00//g' | docker e
 
 select count(*) from db.ontime;
 select count(*) from db.ontime_full;
+
+
+
+
+
+=========
+apt update
+sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+apt-add-repository "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+apt update
+apt install -y docker-engine
+systemctl start docker
+systemctl enable docker
+usermod -aG docker ubuntu  # change ubuntu to username
+# relogin
