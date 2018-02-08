@@ -125,9 +125,10 @@ ENGINE = ReplicatedMergeTree(
     8192
 );
 
+DROP TABLE IF EXISTS db.ontime_full ON CLUSTER 'asg-cluster';
 CREATE TABLE IF NOT EXISTS db.ontime_full ON CLUSTER 'asg-cluster' AS default.ontime_schema
 ENGINE = Distributed(
-    asg_cluster,
+    'asg-cluster',
     'db',
     ontime,
     rand()
