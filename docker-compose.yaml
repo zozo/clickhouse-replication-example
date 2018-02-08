@@ -115,4 +115,10 @@ services:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=zoo1:28881:38881 server.2=zoo2:28882:38882 server.3=zoo3:28883:38883
 
+  superset:
+    image: divvit/divvit-superset
+    volumes:
+      - ./data/superset:/home/superset
+    ports:
+      - 8088:8088
 
