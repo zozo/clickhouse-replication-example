@@ -9,9 +9,9 @@
             <host>zoo2</host>
             <port>2182</port>
         </node>
-        <node index="3">
+        <!-- <node index="3">
             <host>zoo3</host>
             <port>2183</port>
-        </node>
+        </node> -->
     </zookeeper>
 </yandex>
